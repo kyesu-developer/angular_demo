@@ -1,0 +1,55 @@
+<div class="offset-md-3 col-md-5 offset-md-4">
+  <form [formGroup]="form">
+        <h1>Login</h1>
+        <div class="alert alert-danger" *ngIf="form.errors">
+            {{form.errors.message}}
+        </div>
+        <div class="alert alert-success" *ngIf="successMsg">
+            Successfully Logged in to the system
+        </div>
+        <div class="form-group">
+            <input 
+            class="form-control" 
+            placeholder="Username" 
+            minlength="5"
+            formControlName="username">
+            <div class="alert alert-danger" *ngIf="username.errors && username.touched">
+                <div *ngIf="username.hasError('required')">Please enter username</div>
+                <div *ngIf="username.hasError('minlength')">
+                    Please enter minimum {{ username.errors.minlength.requiredLength }} Characters
+                </div>
+                <div *ngIf="username.hasError('containsSpace')">
+                    Spaces are not allowed
+                </div>
+                <div *ngIf="username.hasError('containsNumber')">
+                    Enter atleast one Digit
+                </div>
+                <div *ngIf="username.hasError('containsUppercase')">
+                    Enter atleast one Uppercase letter
+                </div>
+                <div *ngIf="username.hasError('containsLowercase')">
+                    Enter atleast one Lowercase letter
+                </div>
+                <div *ngIf="username.hasError('containsAllowedSpecialChars')">
+                    Atleast one special Character(Allowed Special Characters +,_,-,@)
+                </div>
+            </div>
+    </div>
+    <div class="form-group">
+        <input 
+        type="password"
+        class="form-control" 
+        placeholder="password"
+        formControlName="password">
+        <div class="alert alert-danger" *ngIf="password.errors && password.touched">
+            <span *ngIf="password.hasError('required')">Please enter password</span>
+            <span *ngIf="password.hasError('minlength')">
+                Please enter minimum {{ password.errors.minlength.requiredLength }}Characters
+            </span>
+        </div>
+    </div>
+    <div class="form-group">
+        <input type="submit" class="btn btn-primary" value="Login" (click)="submit()" [disabled]="!form.valid">
+    </div>
+ </form>
+</div>
